@@ -33,6 +33,8 @@ namespace Library.API
             {
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(setupAction));
+                setupAction.InputFormatters.Add(new XmlSerializerInputFormatter(setupAction));
             });
 
             // register the DbContext on the container, getting the connection string from
@@ -49,7 +51,7 @@ namespace Library.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             ILoggerFactory loggerFactory, LibraryContext libraryContext)
         {           
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) 
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -74,6 +76,8 @@ namespace Library.API
                 src.DateOfBirth.GetCurrentAge()));
 
                 cfg.CreateMap<Entities.Book, Models.BookDto>();
+                cfg.CreateMap<Models.AuthorCreationDto, Entities.Author>();
+                cfg.CreateMap<Models.BookCreationDto, Entities.Book>();
             });
 
             libraryContext.EnsureSeedDataForContext();
