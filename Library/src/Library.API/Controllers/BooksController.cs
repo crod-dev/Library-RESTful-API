@@ -4,6 +4,7 @@ using Library.API.Models;
 using Library.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Library.API.Controllers
     public class BooksController : Controller
     {
         private ILibraryRepository _libraryRepository;
+        private ILogger _logger;
 
-        public BooksController(ILibraryRepository libraryRepository)
+        public BooksController(ILibraryRepository libraryRepository, ILogger<BooksController> logger)
         {
             _libraryRepository = libraryRepository;
+            _logger = logger;
         }
         [HttpGet()]
         public IActionResult GetBooksForAuthor(Guid authorId)
@@ -54,6 +57,15 @@ namespace Library.API.Controllers
             {
                 return BadRequest();
             }
+            if(book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookCreationDto), "The provided description should be different fromt the title.");
+            }
+            if (!ModelState.IsValid)
+            {
+                //return 422
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
             if (!_libraryRepository.AuthorExists(authorId))
             {
                 return NotFound();
@@ -85,6 +97,7 @@ namespace Library.API.Controllers
             {
                 throw new Exception($"Deleting book {id} for author {authorId} failed on save.");
             }
+            _logger.LogInformation(100, $"Book {id} for author {authorId} was deleted.");
             return NoContent();
         }
         [HttpPut("{id}")]
@@ -93,6 +106,14 @@ namespace Library.API.Controllers
             if (book == null)
             {
                 return NotFound();
+            }
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookUpdateDto), "The provided description should be different from the title.");
+            }
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
             }
             if (!_libraryRepository.AuthorExists(authorId))
             {
@@ -136,7 +157,17 @@ namespace Library.API.Controllers
             if(bookForAuthorFromRepo == null)
             {
                 var bookDto = new BookUpdateDto();
-                patchDoc.ApplyTo(bookDto);
+                patchDoc.ApplyTo(bookDto, ModelState);
+                if(bookDto.Description == bookDto.Title)
+                {
+                    ModelState.AddModelError(nameof(BookUpdateDto),
+                        "The provided description should be different from the title.");
+                }
+                TryValidateModel(bookDto);
+                if(!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
                 var bookToAdd = Mapper.Map<Book>(bookDto);
                 bookToAdd.Id = id;
                 _libraryRepository.AddBookForAuthor(authorId, bookToAdd);
@@ -149,8 +180,18 @@ namespace Library.API.Controllers
 
             }
             var bookToPatch = Mapper.Map<BookUpdateDto>(bookForAuthorFromRepo);
+            //patchDoc.ApplyTo(bookToPatch, ModelState);
             patchDoc.ApplyTo(bookToPatch);
-            //add validation
+            if(bookToPatch.Description == bookToPatch.Title)
+            {
+                ModelState.AddModelError(nameof(BookUpdateDto),
+                    "The provided description should be different from the title.");
+            }
+            TryValidateModel(bookToPatch);
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
             _libraryRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
             if (!_libraryRepository.Save())

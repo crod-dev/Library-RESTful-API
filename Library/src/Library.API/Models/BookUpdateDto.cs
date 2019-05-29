@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Library.API.Models
 {
-    public class BookUpdateDto
+    public class BookUpdateDto : BookForManipulationDto
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
+        [Required(ErrorMessage = "You should fill out the description.")]
+        public override string Description { get => base.Description; set => base.Description = value; }
     }
 }

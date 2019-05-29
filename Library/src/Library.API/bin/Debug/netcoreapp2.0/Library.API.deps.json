@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "cad946fb6e845e54efa7aca5d8c0ad9e201a385c"
+    "signature": "61c5baf25a782706619f6e7d8322865fed22c53e"
   },
   "compilationOptions": {
     "defines": [
@@ -27,7 +27,9 @@
           "AutoMapper": "8.1.0",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.AspNetCore.Mvc.Formatters.Xml": "2.2.0",
-          "Microsoft.NETCore.App": "2.0.0"
+          "Microsoft.Extensions.Logging.Debug": "2.2.0",
+          "Microsoft.NETCore.App": "2.0.0",
+          "NLog.Web.AspNetCore": "4.8.2"
         },
         "runtime": {
           "Library.API.dll": {}
@@ -119,7 +121,7 @@
           "Microsoft.ApplicationInsights": "2.4.0",
           "Microsoft.ApplicationInsights.DependencyCollector": "2.4.1",
           "Microsoft.AspNetCore.Hosting": "2.0.0",
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.Json": "2.0.0",
           "Microsoft.Extensions.DiagnosticAdapter": "2.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
@@ -168,10 +170,10 @@
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
           "Microsoft.Extensions.Configuration.Json": "2.0.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Logging.Configuration": "2.0.0",
           "Microsoft.Extensions.Logging.Console": "2.0.0",
-          "Microsoft.Extensions.Logging.Debug": "2.0.0"
+          "Microsoft.Extensions.Logging.Debug": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.dll": {
@@ -282,10 +284,10 @@
           "Microsoft.Extensions.Caching.Memory": "2.0.0",
           "Microsoft.Extensions.Caching.Redis": "2.0.0",
           "Microsoft.Extensions.Caching.SqlServer": "2.0.0",
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.AzureKeyVault": "2.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "2.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "2.2.0",
           "Microsoft.Extensions.Configuration.CommandLine": "2.0.0",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.0.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
@@ -306,12 +308,12 @@
           "Microsoft.Extensions.Identity.Stores": "2.0.0",
           "Microsoft.Extensions.Localization": "2.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.AzureAppServices": "2.0.0",
           "Microsoft.Extensions.Logging.Configuration": "2.0.0",
           "Microsoft.Extensions.Logging.Console": "2.0.0",
-          "Microsoft.Extensions.Logging.Debug": "2.0.0",
+          "Microsoft.Extensions.Logging.Debug": "2.2.0",
           "Microsoft.Extensions.Logging.EventSource": "2.0.0",
           "Microsoft.Extensions.Logging.TraceSource": "2.0.0",
           "Microsoft.Extensions.ObjectPool": "2.2.0",
@@ -348,7 +350,7 @@
           "Microsoft.AspNetCore.Razor.Runtime": "2.0.0",
           "Microsoft.Extensions.Configuration.Json": "2.0.0",
           "Microsoft.Extensions.DiagnosticAdapter": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Logging.Configuration": "2.0.0"
         },
         "runtime": {
@@ -762,12 +764,12 @@
           "Microsoft.AspNetCore.Hosting.Server.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http": "2.2.0",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.0.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
           "Microsoft.Extensions.FileProviders.Physical": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0",
           "System.Diagnostics.DiagnosticSource": "4.5.0",
           "System.Reflection.Metadata": "1.5.0"
@@ -1879,7 +1881,7 @@
         "dependencies": {
           "Microsoft.Extensions.Caching.Memory": "2.0.0",
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Remotion.Linq": "2.1.1",
           "System.Collections.Immutable": "1.4.0",
           "System.ComponentModel.Annotations": "4.5.0",
@@ -2043,14 +2045,14 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.SqlServer.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration/2.0.0": {
+      "Microsoft.Extensions.Configuration/2.2.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.17205"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18315"
           }
         },
         "compile": {
@@ -2074,7 +2076,7 @@
       "Microsoft.Extensions.Configuration.AzureKeyVault/2.0.0": {
         "dependencies": {
           "Microsoft.Azure.KeyVault": "2.3.2",
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
           "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.14.1"
         },
@@ -2088,14 +2090,14 @@
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.AzureKeyVault.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Binder/2.0.0": {
+      "Microsoft.Extensions.Configuration.Binder/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0"
+          "Microsoft.Extensions.Configuration": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.17205"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18315"
           }
         },
         "compile": {
@@ -2104,7 +2106,7 @@
       },
       "Microsoft.Extensions.Configuration.CommandLine/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0"
+          "Microsoft.Extensions.Configuration": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.CommandLine.dll": {
@@ -2118,7 +2120,7 @@
       },
       "Microsoft.Extensions.Configuration.EnvironmentVariables/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0"
+          "Microsoft.Extensions.Configuration": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.EnvironmentVariables.dll": {
@@ -2132,7 +2134,7 @@
       },
       "Microsoft.Extensions.Configuration.FileExtensions/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.FileProviders.Physical": "2.0.0"
         },
         "runtime": {
@@ -2147,7 +2149,7 @@
       },
       "Microsoft.Extensions.Configuration.Ini/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0"
         },
         "runtime": {
@@ -2162,7 +2164,7 @@
       },
       "Microsoft.Extensions.Configuration.Json/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
           "Newtonsoft.Json": "10.0.1"
         },
@@ -2192,7 +2194,7 @@
       },
       "Microsoft.Extensions.Configuration.Xml/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "2.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.0.0",
           "System.Security.Cryptography.Xml": "4.4.0"
         },
@@ -2351,7 +2353,7 @@
       "Microsoft.Extensions.Identity.Core/2.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0",
           "System.ComponentModel.Annotations": "4.5.0"
         },
@@ -2368,7 +2370,7 @@
       "Microsoft.Extensions.Identity.Stores/2.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Identity.Core": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "System.ComponentModel.Annotations": "4.5.0"
         },
         "runtime": {
@@ -2409,16 +2411,17 @@
           "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging/2.0.0": {
+      "Microsoft.Extensions.Logging/2.2.0": {
         "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "2.2.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.17205"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18315"
           }
         },
         "compile": {
@@ -2440,7 +2443,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.0.0",
           "Microsoft.Extensions.Configuration.Json": "2.0.0",
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Configuration": "2.0.0",
           "System.ValueTuple": "4.4.0"
@@ -2457,7 +2460,7 @@
       },
       "Microsoft.Extensions.Logging.Configuration/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "2.0.0"
         },
         "runtime": {
@@ -2473,7 +2476,7 @@
       "Microsoft.Extensions.Logging.Console/2.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Logging": "2.0.0"
+          "Microsoft.Extensions.Logging": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Console.dll": {
@@ -2485,14 +2488,14 @@
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Console.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.Debug/2.0.0": {
+      "Microsoft.Extensions.Logging.Debug/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "2.0.0"
+          "Microsoft.Extensions.Logging": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Debug.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.17205"
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18315"
           }
         },
         "compile": {
@@ -2501,7 +2504,7 @@
       },
       "Microsoft.Extensions.Logging.EventSource/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "2.0.0",
+          "Microsoft.Extensions.Logging": "2.2.0",
           "Newtonsoft.Json": "10.0.1"
         },
         "runtime": {
@@ -2516,7 +2519,7 @@
       },
       "Microsoft.Extensions.Logging.TraceSource/2.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "2.0.0"
+          "Microsoft.Extensions.Logging": "2.2.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.TraceSource.dll": {
@@ -2558,7 +2561,7 @@
       "Microsoft.Extensions.Options.ConfigurationExtensions/2.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Configuration.Binder": "2.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "2.2.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "Microsoft.Extensions.Options": "2.2.0"
         },
@@ -2858,6 +2861,49 @@
         },
         "compile": {
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
+        }
+      },
+      "NLog/4.6.3": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.3.9764"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {}
+        }
+      },
+      "NLog.Extensions.Logging/1.5.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "2.2.0",
+          "NLog": "4.6.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.5.0.960"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.Extensions.Logging.dll": {}
+        }
+      },
+      "NLog.Web.AspNetCore/4.8.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Http": "2.2.0",
+          "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
+          "NLog.Extensions.Logging": "1.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.8.2.1211"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/NLog.Web.AspNetCore.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -5351,12 +5397,12 @@
       "path": "microsoft.extensions.caching.sqlserver/2.0.0",
       "hashPath": "microsoft.extensions.caching.sqlserver.2.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration/2.0.0": {
+    "Microsoft.Extensions.Configuration/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-X3DXf2CtFi6r1r606h1xGtRsNiemPBNcyMNUQTFpjBqYCjf/Q/+mgGwdZnGQzL1fNetbSIpAMmCHBAjHooZ4XQ==",
-      "path": "microsoft.extensions.configuration/2.0.0",
-      "hashPath": "microsoft.extensions.configuration.2.0.0.nupkg.sha512"
+      "sha512": "sha512-0MtJgCZ5tIw7LoxOlXlifwVTwfMd4YdMJ9+DVZyX/fqqXO9zseZ8hH2WxbJzDbBDp45nA8rwHlL4JH/6Z98B4w==",
+      "path": "microsoft.extensions.configuration/2.2.0",
+      "hashPath": "microsoft.extensions.configuration.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/2.2.0": {
       "type": "package",
@@ -5372,12 +5418,12 @@
       "path": "microsoft.extensions.configuration.azurekeyvault/2.0.0",
       "hashPath": "microsoft.extensions.configuration.azurekeyvault.2.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Binder/2.0.0": {
+    "Microsoft.Extensions.Configuration.Binder/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IznHHzGUtrdpuQqIUdmzF6TYPcsYHONhHh3o9dGp39sX/9Zfmt476UnhvU0UhXgJnXXAikt/MpN6AuSLCCMdEQ==",
-      "path": "microsoft.extensions.configuration.binder/2.0.0",
-      "hashPath": "microsoft.extensions.configuration.binder.2.0.0.nupkg.sha512"
+      "sha512": "sha512-6ANwTuQZqIIt0guKAdS9Mn6c+PfhOBpqRm7FslUJqtG000uo0Cd3pAndk92RQq0ygDFRub/ftiRy8DukWXqNzQ==",
+      "path": "microsoft.extensions.configuration.binder/2.2.0",
+      "hashPath": "microsoft.extensions.configuration.binder.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.CommandLine/2.0.0": {
       "type": "package",
@@ -5526,12 +5572,12 @@
       "path": "microsoft.extensions.localization.abstractions/2.0.0",
       "hashPath": "microsoft.extensions.localization.abstractions.2.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging/2.0.0": {
+    "Microsoft.Extensions.Logging/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VP10syWV/vxYYMKgZ2eDESmUsz3gPxvBn5J6tkVN8lI4M+dF43RN8fWsEPbcAneDmZrHl3Pv23z05nmyGkJlpg==",
-      "path": "microsoft.extensions.logging/2.0.0",
-      "hashPath": "microsoft.extensions.logging.2.0.0.nupkg.sha512"
+      "sha512": "sha512-wa1Uk8sVuEzHtwZPoDNhQiFDjlDe9t74+Iess26uqhIwn02T79v/GB/pLCJ08MOvuM953LfleJW6VPr/wVXCJw==",
+      "path": "microsoft.extensions.logging/2.2.0",
+      "hashPath": "microsoft.extensions.logging.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging.Abstractions/2.2.0": {
       "type": "package",
@@ -5561,12 +5607,12 @@
       "path": "microsoft.extensions.logging.console/2.0.0",
       "hashPath": "microsoft.extensions.logging.console.2.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Debug/2.0.0": {
+    "Microsoft.Extensions.Logging.Debug/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2HXLAXF3WHc3qNIN5DVcgh/DPrnB+BCmTYAg2OO6N5IL4tltQEQAUGqd2yUCclM9CffSOKmnfa1phxwn9zYz+Q==",
-      "path": "microsoft.extensions.logging.debug/2.0.0",
-      "hashPath": "microsoft.extensions.logging.debug.2.0.0.nupkg.sha512"
+      "sha512": "sha512-kvnuNr6YzK33u+o9BheEOxOWiyMtScthidlqmYHj9xMEi3oAf1gpmD7w4LBKSjQFVVw6KWWxx0/zU4GRTkQ3Ow==",
+      "path": "microsoft.extensions.logging.debug/2.2.0",
+      "hashPath": "microsoft.extensions.logging.debug.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging.EventSource/2.0.0": {
       "type": "package",
@@ -5721,6 +5767,27 @@
       "sha512": "sha512-W5Ke5xei9yS0ljQZuT75VgSp5M43eCPm5hHAelvKyGGU4dV7hYCmtwdsxoADb/exO6pYHeu/Iki43TdYPzfESQ==",
       "path": "newtonsoft.json.bson/1.0.1",
       "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
+    },
+    "NLog/4.6.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2GtWHRCpLE4R8NucdnmJ5n0snFPV3fOVxIDa435+QxqArOs5c8YtwwDbBYIm9RHflJepUAZJpi8wZUaC/p1E6w==",
+      "path": "nlog/4.6.3",
+      "hashPath": "nlog.4.6.3.nupkg.sha512"
+    },
+    "NLog.Extensions.Logging/1.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qOuRgsTU2AHTSYhyhMleTRDyy+EIIrAfwC7dx7HzwiNFiCx4pP1tULCNlnnwOtReetCBoOeikAl310j1S2lJmg==",
+      "path": "nlog.extensions.logging/1.5.0",
+      "hashPath": "nlog.extensions.logging.1.5.0.nupkg.sha512"
+    },
+    "NLog.Web.AspNetCore/4.8.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cRubCBRMsb5z+0Ow1zGwY5wDJpx83UDZPSuD8q/d8ydKCkiKBb8noZXGBVr5e5Vzbvynug8C6U+DdEFtDmZv5w==",
+      "path": "nlog.web.aspnetcore/4.8.2",
+      "hashPath": "nlog.web.aspnetcore.4.8.2.nupkg.sha512"
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",
