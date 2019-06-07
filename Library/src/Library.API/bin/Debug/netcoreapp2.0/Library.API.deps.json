@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "61c5baf25a782706619f6e7d8322865fed22c53e"
+    "signature": "0be92a6128002797fd1ef95f80a047e994ba4851"
   },
   "compilationOptions": {
     "defines": [
@@ -29,7 +29,8 @@
           "Microsoft.AspNetCore.Mvc.Formatters.Xml": "2.2.0",
           "Microsoft.Extensions.Logging.Debug": "2.2.0",
           "Microsoft.NETCore.App": "2.0.0",
-          "NLog.Web.AspNetCore": "4.8.2"
+          "NLog.Web.AspNetCore": "4.8.2",
+          "System.Linq.Dynamic.Core": "1.0.15"
         },
         "runtime": {
           "Library.API.dll": {}
@@ -3554,6 +3555,20 @@
           "System.Runtime.Extensions": "4.3.0"
         }
       },
+      "System.Linq.Dynamic.Core/1.0.15": {
+        "dependencies": {
+          "System.Reflection.Emit": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Linq.Dynamic.Core.dll": {
+            "assemblyVersion": "1.0.14.0",
+            "fileVersion": "1.0.14.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Linq.Dynamic.Core.dll": {}
+        }
+      },
       "System.Linq.Expressions/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -6208,6 +6223,13 @@
       "sha512": "sha512-5DbqIUpsDp0dFftytzuMmc0oeMdQwjcP/EWxsksIz/w1TcFRkZ3yKKz0PqiYFMmEwPSWw+qNVqD7PJ889JzHbw==",
       "path": "system.linq/4.3.0",
       "hashPath": "system.linq.4.3.0.nupkg.sha512"
+    },
+    "System.Linq.Dynamic.Core/1.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r6IqHeJXbvQ/DvIbJCYYvvjJtEUARdSjyR2RdxJGBTHOl3NvDKPkeQtCR8Y+57Ju0TUs6jK40KtXcYmXOLg3jg==",
+      "path": "system.linq.dynamic.core/1.0.15",
+      "hashPath": "system.linq.dynamic.core.1.0.15.nupkg.sha512"
     },
     "System.Linq.Expressions/4.3.0": {
       "type": "package",

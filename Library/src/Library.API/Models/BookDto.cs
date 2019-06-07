@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace Library.API.Models
 {
-    public class BookDto
+    // 09 Inherit from LinkedResourceBaseDto be able to add a collection of links to BookDto
+    public class BookDto: LinkedResourceBaseDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
