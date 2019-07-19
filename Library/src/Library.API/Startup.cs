@@ -39,7 +39,34 @@ namespace Library.API
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(setupAction));
-                setupAction.InputFormatters.Add(new XmlSerializerInputFormatter(setupAction));
+                // 10 comment out
+                //setupAction.InputFormatters.Add(new XmlSerializerInputFormatter(setupAction));
+                // 10 create new formatters
+                var xmlDataContractSerializerInputFormatter =
+                new XmlSerializerInputFormatter(setupAction);
+                xmlDataContractSerializerInputFormatter.SupportedMediaTypes
+                    .Add("application/vnd.marvin.authorwithdateofdeath.full+xml");
+                setupAction.InputFormatters.Add(xmlDataContractSerializerInputFormatter);
+
+                // 10
+                var jsonInputFormatter = setupAction.InputFormatters
+                .OfType<JsonInputFormatter>().FirstOrDefault();
+
+                if (jsonInputFormatter != null)
+                {
+                    jsonInputFormatter.SupportedMediaTypes
+                    .Add("application/vnd.marvin.author.full+json");
+                    jsonInputFormatter.SupportedMediaTypes
+                    .Add("application/vnd.marvin.authorwithdateofdeath.full+json");
+                }
+
+                // 10 Add media type formatter to support vendor specific media type
+                var jsonOutputFormatter = setupAction.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
+
+                if(jsonOutputFormatter != null)
+                {
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.hateoas+json");
+                }
             })
             .AddJsonOptions(options =>
             {
@@ -100,10 +127,12 @@ namespace Library.API
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                 $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
-                src.DateOfBirth.GetCurrentAge()));
+                src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
 
                 cfg.CreateMap<Entities.Book, Models.BookDto>();
                 cfg.CreateMap<Models.AuthorCreationDto, Entities.Author>();
+                // 10 add mapping for author with death date
+                cfg.CreateMap<Models.AuthorForCreationWithDateOfDeathDto, Entities.Author>();
                 cfg.CreateMap<Models.BookCreationDto, Entities.Book>();
                 cfg.CreateMap<Models.BookUpdateDto, Entities.Book>();
                 cfg.CreateMap<Entities.Book, Models.BookUpdateDto>();

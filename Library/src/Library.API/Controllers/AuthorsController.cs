@@ -33,7 +33,8 @@ namespace Library.API.Controllers
             _typeHelperService = typeHelperService;
         }
         [HttpGet(Name ="GetAuthors")]
-        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters)
+        // 10 add custom vendor specific media from header
+        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters, [FromHeader(Name = "Accept")] string mediaType)
         {
             if(!_propertyMappingService.ValidMappingExistsFor<AuthorDto, Author>(authorsResourceParameters.OrderBy))
             {
@@ -44,44 +45,71 @@ namespace Library.API.Controllers
                 return BadRequest();
             }
             var authorsFromRepo = _libraryRepository.GetAuthors(authorsResourceParameters);
-            //09 Code is removed because these link drive app state, so they can be created in the CreateLinksForAuthors()
-            //var previousPageLink = authorsFromRepo.HasPrevious ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.PreviousPage) : null;
-            //var nextPageLink = authorsFromRepo.HasNext ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.NextPage) : null;
-            var paginationMetadata = new
-            {
-                totalCount = authorsFromRepo.TotalCount,
-                pageSize = authorsFromRepo.PageSize,
-                currentPage = authorsFromRepo.CurrentPage,
-                totalPages = authorsFromRepo.TotalPages,
-                //09 Code is removed because these link drive app state, so they can be created in the CreateLinksForAuthors()
-                //previousPageLink = previousPageLink,
-                //nextPageLink = nextPageLink
-            };
-            Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+           
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
-            //09 create links for authors collection
-            var links = CreateLinksForAuthors(authorsResourceParameters, authorsFromRepo.HasNext, authorsFromRepo.HasPrevious);
-            var shapedAuthors = authors.ShapeData(authorsResourceParameters.Fields);
-            //09 add links property to each author in collection
-            var shapedAuthorsWithLinks = shapedAuthors.Select(author =>
+            // 10 this code only executes if this vendor media type is specified
+            if (mediaType == "application/vnd.marvin.hateoas+json")
             {
+                //09 Code is removed because these link drive app state, so they can be created in the CreateLinksForAuthors()
+                //var previousPageLink = authorsFromRepo.HasPrevious ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.PreviousPage) : null;
+                //var nextPageLink = authorsFromRepo.HasNext ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.NextPage) : null;
+                var paginationMetadata = new
+                {
+                    totalCount = authorsFromRepo.TotalCount,
+                    pageSize = authorsFromRepo.PageSize,
+                    currentPage = authorsFromRepo.CurrentPage,
+                    totalPages = authorsFromRepo.TotalPages,
+                    //09 Code is removed because these link drive app state, so they can be created in the CreateLinksForAuthors()
+                    //previousPageLink = previousPageLink,
+                    //nextPageLink = nextPageLink
+                };
+                Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+                //09 create links for authors collection
+                var links = CreateLinksForAuthors(authorsResourceParameters, authorsFromRepo.HasNext, authorsFromRepo.HasPrevious);
+                var shapedAuthors = authors.ShapeData(authorsResourceParameters.Fields);
+                //09 add links property to each author in collection
+                var shapedAuthorsWithLinks = shapedAuthors.Select(author =>
+                {
                 //09 cast each expando object to dictionary
                 var authorAsDictionary = author as IDictionary<string, object>;
                 //09 create link for each author
                 var authorLinks = CreateLinksForAuthor(
-                    (Guid)authorAsDictionary["Id"], authorsResourceParameters.Fields);
+                        (Guid)authorAsDictionary["Id"], authorsResourceParameters.Fields);
                 //09 add link to author
                 authorAsDictionary.Add("links", authorLinks);
-                return authorAsDictionary;
-            });
-            //09 create and return anonymous object
-            var linkedCollectionResource = new
+                    return authorAsDictionary;
+                });
+                //09 create and return anonymous object
+                var linkedCollectionResource = new
+                {
+                    value = shapedAuthorsWithLinks,
+                    links = links
+                };
+
+                return Ok(linkedCollectionResource);
+            }
+            else
             {
-                value = shapedAuthorsWithLinks,
-                links = links
-            };
+                // 10 code re-added from before implementing the vendor hateos code
+                var previousPageLink = authorsFromRepo.HasPrevious ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.PreviousPage) : null;
+                var nextPageLink = authorsFromRepo.HasNext ? CreateAuthorsResourceUri(authorsResourceParameters, ResourceUriType.NextPage) : null;
+                var paginationMetadata = new
+                {
+                    previousPageLink = previousPageLink,
+                    nextPageLink = nextPageLink,
+                    totalCount = authorsFromRepo.TotalCount,
+                    pageSize = authorsFromRepo.PageSize,
+                    currentPage = authorsFromRepo.CurrentPage,
+                    totalPages = authorsFromRepo.TotalPages
+                    
+                };
+                Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            
             //09 change from authors.ShapeData(authorsResourceParameters.Fields) to linkedCollectionResource 
-            return Ok(linkedCollectionResource);
+            // 10 revert the previous change, change from linkedCollectionResourcet to ShapeData
+            //return Ok(linkedCollectionResource);
+            return Ok(authors.ShapeData(authorsResourceParameters.Fields));
+			}
         }
         private string CreateAuthorsResourceUri(AuthorsResourceParameters authorsResourceParameters, ResourceUriType type)
         {
@@ -146,7 +174,8 @@ namespace Library.API.Controllers
             linkedResourceToReturn.Add("links", links);
             return Ok(linkedResourceToReturn);
         }
-        [HttpPost()]
+        [HttpPost(Name ="CreateAuthor")]
+        [RequestHeaderMatchesMediaType("Content-Type", new[] { "application/vnd.marvin.author.full+json"})]
         public IActionResult CreateAuthor([FromBody] AuthorCreationDto author)
         {
             if (author == null)
@@ -172,6 +201,43 @@ namespace Library.API.Controllers
             return CreatedAtRoute("GetAuthor", new { id=linkedResourceToReturn["Id"]}, linkedResourceToReturn);
 
         }
+
+        // 10 Copy from CreateAthor method and modify to accept date of death
+        [HttpPost(Name = "CreateAuthorWithDateOfDeath")]
+        // 10 Add custom media type attribute
+        [RequestHeaderMatchesMediaType("Content-Type", new[] { "application/vnd.marvin.authorwithdateofdeath.full+json",
+        "application/vnd.marvin.authorwithdateofdeath.full+xml"})]
+        // 10 showing to have multiple instances of the same restraint (add AllowMultiple in custom constraint)
+        //[RequestHeaderMatchesMediaType("Accept", new[] { "..." })]
+        public IActionResult CreateAuthorWithDateOfDeath([FromBody] AuthorForCreationWithDateOfDeathDto author)
+        {
+            if (author == null)
+            {
+                return BadRequest();
+            }
+            var authorEntity = Mapper.Map<Author>(author);
+
+            _libraryRepository.AddAuthor(authorEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an author failed on save.");
+                //return StatusCode(500, "A problem happened with handling your request.");
+            }
+            var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
+            // 09 create the links for the author, no fields param on POST
+            var links = CreateLinksForAuthor(authorToReturn.Id, null);
+            // 09 cast Expando Object to dictionary
+            var linkedResourceToReturn = authorToReturn.ShapeData(null) as IDictionary<string, object>;
+            // 09 add Links to dictionary
+            linkedResourceToReturn.Add("links", links);
+            // 09 update to return linkedResourceToReturn instead of authorToReturn
+            // 09 update to pass in the id from linkedResourceToReturn instead of id from authorToReturn
+            return CreatedAtRoute("GetAuthor", new { id = linkedResourceToReturn["Id"] }, linkedResourceToReturn);
+
+        }
+
+
         [HttpPost("{id}")]
         public IActionResult BlockAuthorCreation(Guid id)
         {
@@ -181,6 +247,7 @@ namespace Library.API.Controllers
             }
             return NotFound();
         }
+
         [HttpDelete("{id}", Name = "DeleteAuthor")]
         public IActionResult DeleteAuthor(Guid id)
         {

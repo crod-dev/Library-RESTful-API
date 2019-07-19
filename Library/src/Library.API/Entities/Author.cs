@@ -20,6 +20,9 @@ namespace Library.API.Entities
         [Required]
         public DateTimeOffset DateOfBirth { get; set; }
 
+        //10 add potential DateOfDeath
+        public DateTimeOffset? DateOfDeath { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Genre { get; set; }
