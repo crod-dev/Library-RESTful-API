@@ -33,6 +33,8 @@ namespace Library.API.Controllers
             _typeHelperService = typeHelperService;
         }
         [HttpGet(Name ="GetAuthors")]
+        // 12 add support for HEAD verb by just adding the HEAD attribute
+        [HttpHead]
         // 10 add custom vendor specific media from header
         public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters, [FromHeader(Name = "Accept")] string mediaType)
         {
@@ -340,6 +342,13 @@ namespace Library.API.Controllers
             }
 
             return links;
+        }
+        // 12 support the OPTIONS verb
+        [HttpOptions]
+        public IActionResult GetAuthorsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
         }
     }
 }

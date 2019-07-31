@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "AspNetCoreRateLimit/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "1.0.1",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/AspNetCoreRateLimit.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/AspNetCoreRateLimit.dll": {}
+        }
+      },
       "AutoMapper/8.1.0": {
         "type": "package",
         "dependencies": {
@@ -53,6 +66,23 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "Marvin.Cache.Headers/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Options": "1.0.0",
+          "Microsoft.Net.Http.Headers": "1.0.0",
+          "NETStandard.Library": "1.6.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/Marvin.Cache.Headers.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.4.0": {
@@ -4835,6 +4865,18 @@
     }
   },
   "libraries": {
+    "AspNetCoreRateLimit/1.0.5": {
+      "sha512": "hgJHcX5ffZp4hI5PDs87TtqIqaVIHHZZQn7wn/3SNbuEwOapcyMwtD60d7CpHPizLpvsOozAbD5AZUWZAHNLeQ==",
+      "type": "package",
+      "path": "aspnetcoreratelimit/1.0.5",
+      "files": [
+        ".signature.p7s",
+        "aspnetcoreratelimit.1.0.5.nupkg.sha512",
+        "aspnetcoreratelimit.nuspec",
+        "lib/net46/AspNetCoreRateLimit.dll",
+        "lib/netstandard1.6/AspNetCoreRateLimit.dll"
+      ]
+    },
     "AutoMapper/8.1.0": {
       "sha512": "YyGENUyP7CdOJcw2TCEMtkuRgj9iRFLHeACrfBEDPY5xIiTB/iDxNFdOy5br4abWR8KnSdQeK/x+GQLE7uiFtQ==",
       "type": "package",
@@ -4868,6 +4910,17 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "Marvin.Cache.Headers/1.0.0": {
+      "sha512": "o7HSepWf4Q4kpCyVTIe2whXibjesP4GqZfCdj129HaA5JiYtcgk/JiCDVTj9VfQxCbO4tnZpco5rDs2OwBMbWw==",
+      "type": "package",
+      "path": "marvin.cache.headers/1.0.0",
+      "files": [
+        ".signature.p7s",
+        "lib/netstandard1.6/Marvin.Cache.Headers.dll",
+        "marvin.cache.headers.1.0.0.nupkg.sha512",
+        "marvin.cache.headers.nuspec"
       ]
     },
     "Microsoft.ApplicationInsights/2.4.0": {
@@ -7704,6 +7757,7 @@
       "type": "package",
       "path": "newtonsoft.json/10.0.1",
       "files": [
+        ".nupkg.metadata",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
@@ -11303,6 +11357,7 @@
       "type": "package",
       "path": "system.runtime.serialization.primitives/4.3.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12877,7 +12932,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "AspNetCoreRateLimit >= 1.0.5",
       "AutoMapper >= 8.1.0",
+      "Marvin.Cache.Headers >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.AspNetCore.Mvc.Formatters.Xml >= 2.2.0",
       "Microsoft.Extensions.Logging.Debug >= 2.2.0",
@@ -12927,9 +12984,17 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "AspNetCoreRateLimit": {
+            "target": "Package",
+            "version": "[1.0.5, )"
+          },
           "AutoMapper": {
             "target": "Package",
             "version": "[8.1.0, )"
+          },
+          "Marvin.Cache.Headers": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",

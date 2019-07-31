@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Newtonsoft.Json.Serialization;
+using AspNetCoreRateLimit;
 
 namespace Library.API
 {
@@ -63,7 +64,7 @@ namespace Library.API
                 // 10 Add media type formatter to support vendor specific media type
                 var jsonOutputFormatter = setupAction.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
 
-                if(jsonOutputFormatter != null)
+                if (jsonOutputFormatter != null)
                 {
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.hateoas+json");
                 }
@@ -90,15 +91,67 @@ namespace Library.API
             });
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddTransient<ITypeHelperService, TypeHelperService>();
+
+            // 11 adding cache header service after installing marvin.cache.headers nuGet package
+            services.AddHttpCacheHeaders(
+                (expirationModelOptions)
+                =>
+                {
+                    expirationModelOptions.MaxAge = 600;
+                },
+                (validationModelOptions)
+                =>
+                {
+                    validationModelOptions.AddMustRevalidate = true;
+                });
+
+            // 11 adding cache store service
+            services.AddResponseCaching();
+
+            // 12 register the services memory cache so the middleware nuget throttling middleware can use it
+            services.AddMemoryCache();
+            // 12 ip rate limiting middleware settings: call configure and pass in the options that we want to configure (IpRateLimitOptions)
+            services.Configure<IpRateLimitOptions>((options) =>
+            {
+                // 12 options parameter, many propterties to configure the ip rate limit middleware
+                options.GeneralRules = new System.Collections.Generic.List<RateLimitRule>()
+                {                    
+                    new RateLimitRule()
+                    {
+                        // 12 limit requests to the full api
+                        Endpoint = "*",
+                        // 12 limit any resource to 3 requests per 5 minutes
+                        Limit = 1000,
+                        Period = "5m"
+                    },
+                    new RateLimitRule()
+                    {
+                        // 12 combine different rules
+                        Endpoint = "*",
+                        // 12 limit any resource to 2 requests per 10 seconds
+                        Limit = 2,
+                        Period = "10s"
+                    }
+                        // 12 *As mentioned, there are a lot of options to configure. 
+                        // We can add policies for each IP. We can configure IP ranges and client IDs, 
+                        // limit requests, depending on the methods or on the resource. So, 10 posts per 
+                        // minute to the author's resource is allowed, but we only get 100 each hour. 
+                        // And we can even read those options from configuration files instead of inputting them in code.
+                };
+            });
+            // 12 to be created once and not for each request, this is to store the policy and rate counter 
+            // across all requests to the api, therefore singleton
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             ILoggerFactory loggerFactory, LibraryContext libraryContext)
         {
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);
-            if (env.IsDevelopment()) 
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -109,7 +162,7 @@ namespace Library.API
                     appBuilder.Run(async context =>
                     {
                         var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        if(exceptionHandlerFeature != null)
+                        if (exceptionHandlerFeature != null)
                         {
                             var logger = loggerFactory.CreateLogger("Global exception logger");
                             logger.LogError(500, exceptionHandlerFeature.Error,
@@ -140,7 +193,17 @@ namespace Library.API
 
             libraryContext.EnsureSeedDataForContext();
 
-            app.UseMvc(); 
+            // 12 rate limiting middleware should be registered in the pipeline before any other
+            // because this rejects the requests if limits are hit 
+            app.UseIpRateLimiting();
+
+            // 11 Add cache store to the pipeline befroe the cache headers
+            app.UseResponseCaching();
+
+            // 11 add middleware (cache headers) to the request pipeline (order is important, should be before mvc)
+            app.UseHttpCacheHeaders();
+
+            app.UseMvc();
         }
     }
 }
